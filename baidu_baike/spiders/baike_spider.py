@@ -29,12 +29,12 @@ class BaikeSpider(scrapy.Spider):
 
     def sub_parse(self, response):
         # print(response.url + " !!!")
-        content_list = response.xpath('.//div[@class="para"]').xpath('string(.)').extract()
+        content_list = response.xpath("//div[@class='para-title level-2' or @class='para']").xpath('string(.)').extract()
         flag = False
         for i,content in enumerate(content_list):
             content = content.strip()
-            content = content.replace("\n","")
-            if len(content) > 15:
+            content = content.replace("。　　","\r")
+            if len(content) > 1:
                 flag = True
                 out_file.write(content)
                 out_file.write("\n")
